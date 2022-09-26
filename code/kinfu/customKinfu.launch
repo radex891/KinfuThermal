@@ -61,7 +61,7 @@
 	    </rosparam>
 	</node>
 
-  <node name="saveKinfuRenderedImgs" pkg="optris_drivers" type="saveKinfuRenderedImgs" output="screen">
+  <node name="saveKinfuRenderedImgs" pkg="jsk_pcl_ros" type="saveKinfuRenderedImgs" output="screen">
     <param name="saveImgPath" type="string" value=""/>
   </node>
 	
