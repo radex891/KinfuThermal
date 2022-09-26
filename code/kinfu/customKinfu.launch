@@ -60,6 +60,10 @@
 	        save_dir: $(optenv HOME)/.ros/jsk_pcl_ros/sample_kinfu
 	    </rosparam>
 	</node>
+
+  <node name="saveKinfuRenderedImgs" pkg="optris_drivers" type="saveKinfuRenderedImgs" output="screen">
+    <param name="saveImgPath" type="string" value=""/>
+  </node>
 	
 </launch>
 
