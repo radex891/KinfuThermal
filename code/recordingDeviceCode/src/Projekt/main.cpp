@@ -20,7 +20,7 @@ void startROSMater(){
 
 int main(int argc, char** argv){
     QApplication a(argc, argv);
-    ros::init(argc, argv, "ProjektAndreas");
+    ros::init(argc, argv, "Projekt");
 
     startROSMater();
 

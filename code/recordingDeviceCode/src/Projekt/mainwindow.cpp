@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     flagTimer = new QTimer();
     connect(flagTimer, SIGNAL(timeout()), this, SLOT(triggerCallback()));
+
+    bagTime = new QTimer();
+    connect(bagTime, SIGNAL(timeout()), this, SLOT(updateBagTime()));
 }
 MainWindow::~MainWindow(){
     delete ui;
@@ -45,8 +48,6 @@ void MainWindow::startRviz(){
 void MainWindow::callbackFlag(const optris_drivers::FlagConstPtr &flag){
     if(flag->flag_state == 3){
         ui->bagfileButton->setStyleSheet("background-color: red;");
-    } else if(flag->flag_state == 0 && isRecordingBag){
-        ui->bagfileButton->setStyleSheet("background-color: green;");
     } else if(flag->flag_state == 0){
         ui->bagfileButton->setStyleSheet("background-color: white;");
     }
@@ -85,7 +86,7 @@ void MainWindow::recordBag(){
         QStringList env;
         env.clear();
 
-        QString recordTopics = "rosbag record /optris/camera_info /optris/image_rect_color /camera/imu /camera/depth/image_rect_raw /camera/depth/camera_info /optris/flag_state   __name:=bagfile";
+        QString recordTopics = "rosbag record /optris/camera_info /optris/image_default /camera/depth/image_rect_raw /camera/depth/camera_info /optris/flag_state /optris/optris_timer  __name:=bagfile";
         QString enableAutoFlag = "rosservice call /optris/auto_flag 1";
         QString forceFlag = "rosservice call /optris/force_flag";
 
@@ -104,9 +105,11 @@ void MainWindow::recordBag(){
         rosBagProc->setEnvironment(env);
         rosBagProc->setWorkingDirectory("/home/termalesubuntu/Dokumente/bags");
         rosBagProc->start(recordTopics);
+        rosBagProc->waitForStarted();
 
+        ui->bagfileButton->setText("stop recording bag\nbagtime: 0 sec");
         isRecordingBag = true;
-        ui->bagfileButton->setStyleSheet("background-color: green;");
+        this->bagTime->start(1000);
 
     } else if(isRecordingBag){
         QStringList env;
@@ -120,15 +123,24 @@ void MainWindow::recordBag(){
         //disableFlag.execute(disableAutoFlag);
         //disableFlag.waitForFinished();
 
-        rosBagProc->kill();
+        QProcess killRosbag;
+        killRosbag.setEnvironment(env);
+        killRosbag.execute("rosnode kill /bagfile");
+        killRosbag.waitForFinished();
+        rosBagProc->waitForFinished();
         delete rosBagProc;
-        killRosbagRecord = new QProcess(this);
-        killRosbagRecord->setEnvironment(env);
-        killRosbagRecord->start("rosnode kill /bagfile");
+        this->bagTime->stop();
 
+        this->bagTimeCounter = 0;
+        ui->bagfileButton->setText("start recording bag\nbagtime: 0 sec");
         isRecordingBag = false;
-        ui->bagfileButton->setStyleSheet("background-color: white;");
     }
+}
+void MainWindow::updateBagTime(){
+    this->bagTimeCounter++;
+    QString c = QString::number(this->bagTimeCounter);
+    QString bagfileButtonText = QString("stop recording bag\n bagtime: ") + c + QString(" sec");
+    ui->bagfileButton->setText(bagfileButtonText);
 }
 
 /******************SET TEMPERATURE RANGES******************/

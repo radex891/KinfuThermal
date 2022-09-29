@@ -71,12 +71,13 @@
     </property>
     <property name="maximumSize">
      <size>
-      <width>141</width>
-      <height>61</height>
+      <width>1410000</width>
+      <height>10000</height>
      </size>
     </property>
     <property name="text">
-     <string>Bagfile: record</string>
+     <string>start recording bag
+ bagtime: 0 sec</string>
     </property>
    </widget>
    <widget class="QPushButton" name="increaseMax">

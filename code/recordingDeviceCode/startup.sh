@@ -5,4 +5,4 @@ source /opt/ros/melodic/setup.bash
 source /home/termalesubuntu/catkin_ws/devel/setup.bash
 
 #launch app
-/home/termalesubuntu/Dokumente/src/build-ProjektAndreas-Desktop-Debug/ProjektAndreas
+/home/termalesubuntu/Dokumente/src/build-Projekt-Desktop-Debug/Projekt

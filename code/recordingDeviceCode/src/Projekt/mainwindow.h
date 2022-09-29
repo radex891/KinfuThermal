@@ -35,17 +35,13 @@ private:
     QProcess* rosBagProc = nullptr;
 
     /**
-     * @brief killRosbagRecord
-     * here to explicitly close the bagfile
-     */
-    QProcess* killRosbagRecord = nullptr;
-
-    /**
-     * @brief isRecordingBag, isRunningCams
+     * @brief isRecordingBag, isRunningCams, bagTime
      * farther see: void recordBag()
      */
     bool isRecordingBag = false;
     bool isRunningCams = false;
+    QTimer* bagTime;
+    int bagTimeCounter = 0;
 
     double minT = 10, maxT = 40;
 
@@ -99,6 +95,10 @@ private slots:
       * @brief trigger ros callback to receive optris flag states
       */
     void triggerCallback();
+    /**
+     * @brief sets the bag recording time in seconds
+     */
+    void updateBagTime();
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
