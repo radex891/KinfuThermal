@@ -6,7 +6,7 @@ Before cloning this repository install and configure Git Large File Storage. For
 
 Please use "git clone https://github.com/username/KinfuThermal.git" to download this repository. Downloading the .zip file does not support Git Large File Storage.
 
-those are the python libraries, which have to be installed, to run the provided python scripts (for rosbag, it is necessary, to install it the it is listed here):
+Those are the python libraries, which have to be installed, to run the provided python scripts (for the package 'rosbag', it is necessary, to install it the way it is listed here):
 
 - opencv-contrib_python 4.5.3.56
 - numpy 1.21.4
