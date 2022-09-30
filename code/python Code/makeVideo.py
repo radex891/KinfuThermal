@@ -21,7 +21,7 @@ def main(argv):
         path_and_name = path_and_name + '/'
     print('video is being rendered........')
     img_array = []
-    filenames = sorted(glob.glob(path_and_name + '*.png'))
+    filenames = sorted(glob.glob(path_and_name + '*.*'))
     for filename in filenames:
         print(filename)
         img = cv2.imread(filename)
