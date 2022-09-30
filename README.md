@@ -21,4 +21,4 @@ Those are the python libraries, which have to be installed, to run the provided 
 - csv
 - cv_bridge
 - glob
-- rosbag -->pip install rosbag roslz4 --extra-index-url https://rospypi.github.io/simple/
+- rosbag: pip install rosbag roslz4 --extra-index-url https://rospypi.github.io/simple/
